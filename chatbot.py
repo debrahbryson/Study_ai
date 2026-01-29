@@ -3,8 +3,7 @@ import json
 from pdfreader import read_pdfs_from_folder
 
 KNOWLEDGE_FILE = "knowledge.json"
-SCHOOL_FOLDER = "school"  # your school folder path
-
+SCHOOL_FOLDER = "school"
 # Stop words to ignore
 STOP_WORDS = {"what","is","are","the","a","an","of","and","to","in","for","on","with","as","by"}
 
