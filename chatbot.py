@@ -4,11 +4,11 @@ from pdfreader import read_pdfs_from_folder
 
 KNOWLEDGE_FILE = "knowledge.json"
 SCHOOL_FOLDER = "school"
-# Stop words to ignore
+
 STOP_WORDS = {"what","is","are","the","a","an","of","and","to","in","for","on","with","as","by"}
 
 def normalize(word):
-    return word.lower().rstrip("s")  # normalize plurals
+    return word.lower().rstrip("s")
 
 def select_topic():
     print("📚 Select which notes you want to study:")
@@ -30,14 +30,14 @@ def build_knowledge(topic_folder):
     folder_path = os.path.join(SCHOOL_FOLDER, topic_folder)
     knowledge = read_pdfs_from_folder(folder_path)
 
-    # Save to knowledge.json
+
     with open(KNOWLEDGE_FILE, "w", encoding="utf-8") as f:
         json.dump(knowledge, f, indent=2)
     print("✅ Knowledge base built for this topic.")
     return knowledge
 
 def load_knowledge(topic_folder):
-    # rebuild knowledge base every time for simplicity
+    
     return build_knowledge(topic_folder)
 
 def answer_question(question, knowledge):
@@ -47,7 +47,7 @@ def answer_question(question, knowledge):
     for item in knowledge:
         text = item["text"].lower()
         score = sum(text.count(word) for word in question_words)
-        if score >= 1:  # minimal threshold
+        if score >= 1:
             scored.append((score, item))
 
     if not scored:
@@ -55,7 +55,7 @@ def answer_question(question, knowledge):
 
     scored.sort(key=lambda x: x[0], reverse=True)
     response = ""
-    for score, item in scored[:3]:  # top 3 matches
+    for score, item in scored[:3]:
         source = item.get("source", "Unknown PDF")
         response += f"\n📄 Source: {source}\n"
         response += item["text"][:700] + "\n"

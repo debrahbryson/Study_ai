@@ -25,11 +25,11 @@ def read_pdfs_from_folder(folder_path):
             path = os.path.join(folder_path, file)
             print(f"📄 Scanning {file} ...")
             text = read_pdf(path)
-            # split text into chunks (paragraphs)
+
             chunks = text.split("\n\n")
             for chunk in chunks:
                 chunk = chunk.strip()
-                if len(chunk) > 50:  # ignore very short chunks
+                if len(chunk) > 50:
                     knowledge.append({
                         "source": file,
                         "text": chunk
